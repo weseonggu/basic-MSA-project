@@ -1,8 +1,12 @@
 package com.spring_cloud.eureka.client.order;
 
+import com.spring_cloud.eureka.client.order.core.Order;
+import com.spring_cloud.eureka.client.order.dto.OrderRequestDto;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -10,8 +14,13 @@ public class OrderService {
 
     private final ProductClient productClient;
 
-    public String getProductInfo(String productId) {
+    public String getProductInfo(List<Order> productIds) {
+
         return productClient.getProduct(productId);
+    }
+
+    public Boolean isProductExist(Long productId) {
+        return productClient.isProductExistToProductService(productId);
     }
 
     public String getOrder(String orderId) {
@@ -22,5 +31,10 @@ public class OrderService {
 
         }
         return "Not exist order...";
+    }
+
+    public void addOrder(OrderRequestDto order) {
+        isProductExist(order.getProduct_ids().)
+
     }
 }

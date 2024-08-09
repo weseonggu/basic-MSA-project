@@ -1,10 +1,10 @@
 package com.spring_cloud.eureka.client.order;
 
-import org.springframework.web.bind.annotation.RestController;
+import com.spring_cloud.eureka.client.order.core.Order;
+import com.spring_cloud.eureka.client.order.dto.OrderRequestDto;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -15,7 +15,12 @@ public class OrderController {
 
     @GetMapping("/order/{orderId}")
     public String getOrder(@PathVariable("orderId") String orderId) {
+
         return orderService.getOrder(orderId);
     }
 
+    @PostMapping("/order")
+    public void createOrder(@RequestBody OrderRequestDto order) {
+        orderService.addOrder(order);
+    }
 }

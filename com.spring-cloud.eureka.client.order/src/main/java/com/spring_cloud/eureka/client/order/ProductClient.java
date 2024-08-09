@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface ProductClient {
     @GetMapping("/products/{id}")
     String getProduct(@PathVariable("id") String id);
+
+    @GetMapping("/products/{productId}")
+    Boolean isProductExistToProductService(Long productId);
 }
 
 
