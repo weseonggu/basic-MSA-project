@@ -19,8 +19,16 @@ public class ProductController {
 
     @Value("${server.port}")
     private  String serverPort;
-
+    
     private  final ProductService productService;
+
+    /**
+     * 상품 추가 도메인 
+     * @param requestProductDto 등록에 필요한 정보
+     * @param userId 
+     * @param role
+     * @return 성공 200 코드
+     */
     @PostMapping("/products")
     public ResponseEntity<String> addProduct(
             @RequestBody RequestProductDto requestProductDto,
@@ -33,10 +41,25 @@ public class ProductController {
         productService.createProduct(requestProductDto);
         return  new ResponseEntity("Product added successfully", headers, HttpStatus.OK);
     }
+
+    /**
+     * 상품 정보 전체 조회  도메인
+     * @return 전체 상품 정보
+     */
     @GetMapping("/products")
     public ResponseEntity<?> getAllProducts() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Server-Port",serverPort);
-        return  productService.getProducts();
+        return  new ResponseEntity(productService.getProducts(), headers, HttpStatus.OK);
+    }
+
+    /**
+     * 다른 서비스의 요청[상품이 있는지 검증]
+     * @param product_id 상품 id
+     * @return boolean 타입
+     */
+    @GetMapping("/products/check/{product_id}")
+    public Boolean checkProduct(@PathVariable Long product_id) {
+        return productService.checkProduct(product_id);
     }
 }

@@ -31,6 +31,11 @@ public class ProductService {
         return  new ResponseEntity<>(productRepository.findAll(),HttpStatus.OK);
     }
 
+    // order service로 부터오는 상품 존재 확인 메소드
+    public boolean checkProduct(Long productId) {
+        return productRepository.existsById(productId);
+    }
+
     private ResponseEntity<String> fallbackCreateProduct(Throwable t) {
         // 여기서는 이메일 이나 다른 개발자에게 보내는 알림을 로직을 수행하고 예외처를 통한 오류메시지를 전달 하도록 변경이 필요
         return new ResponseEntity<>("상품 등록 실패", HttpStatus.NOT_FOUND);
@@ -40,4 +45,6 @@ public class ProductService {
         // 여기서는 이메일 이나 다른 개발자에게 보내는 알림을 로직을 수행하고 예외처를 통한 오류메시지를 전달 하도록 변경이 필요
         return new ResponseEntity<String>("상품 조회 실패", HttpStatus.NOT_FOUND);
     }
+
+
 }

@@ -15,5 +15,5 @@ import java.util.List;
 
 public class OrderRequestDto {
     private String name;
-    private List<OrderMapping> product_ids;
+    private Long product_id;
 }
